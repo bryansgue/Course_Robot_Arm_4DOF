@@ -14,12 +14,12 @@ send(state_topic, state_msg);
 
 %% CONFIGURACION SUSCRIPTOR
 % Crear el suscriptor para el mensaje de Odometría
- control_sub = rossubscriber('/control');
+ control_sub = rossubscriber('/states');
 
 
 %% Programa principal
 
-f = 5;
+f = 30;
 ts = 1/f; % Tiempo de muestreo (segundos)
 tiempo_simulacion = 60; % Tiempo total de simulación (segundos)
 
@@ -38,15 +38,20 @@ for i = 1:num_iteraciones
  
     
     % Leer el mensaje de Odometría
-    msg_control = receive(control_sub, 2); % Espera hasta 10 segundos por un mensaje
-    control_actions = msg_control.Axes;
+    try
+        
+    catch
+        
+    end
+    
+    
     
     disp(control_actions)
 
     while toc<ts
     end
     
-    disp(toc)
+    
 
 end
 

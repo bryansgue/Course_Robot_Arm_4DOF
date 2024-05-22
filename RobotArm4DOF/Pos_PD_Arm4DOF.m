@@ -94,7 +94,7 @@ for k = 1:length(t)
 % 
 
    T_ref(:,k) = K*tanh(qe) + D*tanh(qpe) + G;
-   %T_ref(:,k) = [0;0;0;0]; 
+   T_ref(:,k) = [0;0;0;0]; 
 % 
 
    M = Matrix_M_4DOF(m1,m2,m3,m4,I1,I2,I3,I4,l1,l2,l3,l4,q(1,k),q(2,k),q(3,k),q(4,k));
