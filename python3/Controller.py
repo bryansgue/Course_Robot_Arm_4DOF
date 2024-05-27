@@ -50,7 +50,7 @@ def calcular_control(x, x_d):
 def main(control_pub, control_msg ):
     # Initial Values System
     # Simulation Time
-    t_final = 60
+    t_final = 60*5
     # Sample time
     frec= 30
     t_s = 1/frec
@@ -79,7 +79,7 @@ def main(control_pub, control_msg ):
         q[:, k] = get_pose_arm()
 
         # Controller u = f(q) 
-        #u[:, k] =  [1,0,0,0]
+        #u[:, k] =  [1,-1,1,-2]
         u[:, k] = calcular_control(q[:, k], q_d)
         
         #Envia las velocidades por ROS
@@ -111,4 +111,5 @@ if __name__ == '__main__':
         pass
     else:
         print("Complete Execution")
+        send_velocity_control([0, 0, 0, 0], control_pub, control_msg )
         pass
