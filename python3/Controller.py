@@ -50,7 +50,7 @@ def calcular_control(x, x_d):
 def main(control_pub, control_msg ):
     # Initial Values System
     # Simulation Time
-    t_final = 60*5
+    t_final = 60
     # Sample time
     frec= 30
     t_s = 1/frec

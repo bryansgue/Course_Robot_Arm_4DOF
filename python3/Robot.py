@@ -55,6 +55,17 @@ def f_sys(x, u):
     x_p = A @ x + B @ u
     return x_p  # Por ejemplo, para un sistema lineal
 
+def runge_kutta_4(f_sys, q, u, dt):
+
+    k1 = f_sys(q, u)
+    k2 = f_sys(q + 0.5 * dt * k1, u)
+    k3 = f_sys(q + 0.5 * dt * k2, u)
+    k4 = f_sys(q + dt * k3, u)
+
+    q_next = q + (dt / 6.0) * (k1 + 2 * k2 + 2 * k3 + k4)
+    
+    return q_next
+
 
 def plot_states(q):
     # Plot states
@@ -113,7 +124,8 @@ def main(control_pub, control_msg):
         q_p[:, k] = f_sys(q[:, k], u[:, k])
 
         # Evolucion de los estados del sistema
-        q[:, k+1] = q[:, k] + q_p[:, k]*t_s     
+        q[:, k+1] = q[:, k] + q_p[:, k]*t_s 
+        q[:, k+1] = runge_kutta_4(f_sys, q[:, k], u[:, k], t_s )    
 
         send_arm_states(q[:, k+1] ,control_pub, control_msg )
 
