@@ -6,6 +6,6 @@
 
 ## Digital Twin
 
-Aquí tienes una demostración de nuestro Digital Twin:
+Demostración del Digital Twin:
 
 ![Digital Twin](Gif/DigitalTwin_2.gif)
