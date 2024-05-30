@@ -94,8 +94,17 @@ Si deseas crear un paquete ROS C++ para trabajar con el brazo robótico, puedes 
     cd ~/catkin_ws
     catkin_make --only-pkg-with-deps brazo_robotico
     ```
+8. Actualiza el entorno de trabajo
+   ```bash
+   source devel/setup.bash
+   ```
+9. Ejecuta el nodo
+   ```bash
+    rosrun brazo_robotico nodo_robot
+   ```
+   
 
-Con estos pasos, habrás creado un paquete ROS C++ llamado `brazo_robotico` que incluye dos nodos: `nodo_robot` y `nodo_brazo`.
+Con estos pasos, habrás creado un paquete ROS C++ llamado `brazo_robotico` que incluye el nodos: `nodo_robot`.
 
 
 ## Modelo de una Partícula en el Espacio
