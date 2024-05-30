@@ -56,7 +56,7 @@ Si deseas crear un paquete ROS C++ para trabajar con el brazo robótico, puedes 
     }
     ```
 
-5. Modifica el archivo `CMakeLists.txt` en el directorio de tu paquete (`~/catkin_ws/src/brazo_robotico/CMakeLists.txt`) con el siguiente contenido:
+5. Modifica el archivo `CMakeLists.txt` en el directorio de tu paquete (`~/catkin_ws/src/brazo_robot/CMakeLists.txt`) con el siguiente contenido:
     ```cmake
     cmake_minimum_required(VERSION 3.0.2)
     project(brazo_robot)
@@ -104,7 +104,7 @@ Si deseas crear un paquete ROS C++ para trabajar con el brazo robótico, puedes 
    ```
    
 
-Con estos pasos, habrás creado un paquete ROS C++ llamado `brazo_robotico` que incluye el nodos: `nodo_robot`.
+Con estos pasos, habrás creado un paquete ROS C++ llamado `brazo_robot` que incluye el nodos: `nodo_robot`.
 
 
 ## Modelo de una Partícula en el Espacio
