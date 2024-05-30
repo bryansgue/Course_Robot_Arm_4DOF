@@ -94,9 +94,7 @@ Con estos pasos, habrás creado un paquete ROS C++ llamado `brazo_robotico` que 
 
 ## Modelo de una Partícula en el Espacio
 
-Este ejemplo muestra un modelo simple de una partícula en el espacio controlada por un nodo ROS en C++. La partícula tiene cuatro grados de libertad y puede recibir comandos de control a través del tópico `/control` y publicar su estado a través del tópico `/states`.
-
-El programa principal consiste en un bucle de control que actualiza continuamente el estado de la partícula y publica sus estados en el tópico `/states`.
+Este ejemplo muestra un modelo simple de una partícula en el espacio controlada por un nodo ROS en C++. 
 
 ```cpp
 #include <ros/ros.h>
