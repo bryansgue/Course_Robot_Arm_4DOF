@@ -271,4 +271,29 @@ target_link_libraries(nodo_robot
 target_link_libraries(nodo_arm ${catkin_LIBRARIES} )    
 ```
 
+## Funcion para graficar en cpp
 
+```cpp
+def plot_states(q, qd=None):
+
+    plt.clf()
+    
+    plt.plot(q[0], label='q1')
+    plt.plot(q[1], label='q2')
+    plt.plot(q[2], label='q3')
+    plt.plot(q[3], label='q4')
+    
+    if qd is not None:
+        plt.plot(qd[0], '--', label='qd1')
+        plt.plot(qd[1], '--', label='qd2')
+        plt.plot(qd[2], '--', label='qd3')
+        plt.plot(qd[3], '--', label='qd4')
+    
+    plt.xlabel('Time steps')
+    plt.ylabel('State value')
+    plt.title('System States over Time')
+    
+    plt.legend()
+    plt.draw()
+    plt.pause(0.001) 
+```
