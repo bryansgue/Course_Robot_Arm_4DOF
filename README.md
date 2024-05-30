@@ -14,8 +14,9 @@ Demostración del Digital Twin:
 
 Si deseas crear un paquete ROS C++ para trabajar con el brazo robótico, puedes seguir estos pasos:
 
-1. Crea un nuevo paquete ROS llamado `brazo_robotico` utilizando el comando `catkin_create_pkg`:
+1. Crea un nuevo paquete ROS llamado `brazo_robotico` utilizando el comando `catkin_create_pkg` en el direcotrio catkin_ws/src:
     ```bash
+    cd ~/catkin_ws/src
     catkin_create_pkg brazo_robotico roscpp std_msgs
     ```
 
