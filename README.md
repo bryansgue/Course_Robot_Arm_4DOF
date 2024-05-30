@@ -289,7 +289,7 @@ target_link_libraries(nodo_robot
 target_link_libraries(nodo_arm ${catkin_LIBRARIES} )    
 ```
 
-## Funcion para graficar en cpp
+## Funcion para graficar q y q_d
 
 ```cpp
 def plot_states(q, qd=None):
