@@ -245,6 +245,7 @@ int main(int argc, char** argv)
 
 
 Modifica el archivo `CMakeLists.txt` en el directorio de tu paquete (`~/catkin_ws/src/brazo_robot/CMakeLists.txt`) con el siguiente contenido:
+    
     ```cmake
     cmake_minimum_required(VERSION 3.0.2)
     project(brazo_robot)
@@ -268,8 +269,7 @@ Modifica el archivo `CMakeLists.txt` en el directorio de tu paquete (`~/catkin_w
       ${catkin_LIBRARIES}
     )
     
-    target_link_libraries(nodo_arm ${catkin_LIBRARIES} )
-    
+    target_link_libraries(nodo_arm ${catkin_LIBRARIES} )    
     ```
 
 
