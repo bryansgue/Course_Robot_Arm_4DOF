@@ -35,7 +35,7 @@ Si deseas crear un paquete ROS C++ para trabajar con el brazo robótico, puedes 
     #include "std_msgs/String.h"
 
     int main(int argc, char **argv) {
-        ros::init(argc, argv, "nodo_brazo");
+        ros::init(argc, argv, "nodo_robot");
         ros::NodeHandle nh;
         
         ros::Publisher pub = nh.advertise<std_msgs::String>("chatter", 1000);
@@ -55,9 +55,27 @@ Si deseas crear un paquete ROS C++ para trabajar con el brazo robótico, puedes 
     }
     ```
 
-5. Regresa al directorio principal de tu espacio de trabajo de catkin y modifica el archivo `CMakeLists.txt` para agregar el nuevo nodo. Agrega la siguiente línea debajo de `add_executable(nodo_robot src/nodo_robot.cpp)`:
+5. Modifica el archivo `CMakeLists.txt` en el directorio de tu paquete (`~/catkin_ws/src/brazo_robotico/CMakeLists.txt`) con el siguiente contenido:
     ```cmake
-    add_executable(nodo_brazo src/nodo_brazo.cpp)
+    cmake_minimum_required(VERSION 3.0.2)
+    project(brazo_robotico)
+
+    find_package(catkin REQUIRED COMPONENTS
+      roscpp
+      std_msgs
+    )
+
+    catkin_package()
+
+    include_directories(
+      ${catkin_INCLUDE_DIRS}
+    )
+
+    add_executable(nodo_robot src/nodo_robot.cpp)
+
+    target_link_libraries(nodo_robot
+      ${catkin_LIBRARIES}
+    )
     ```
 
 6. Luego, ejecuta `catkin_make` para compilar tu paquete:
