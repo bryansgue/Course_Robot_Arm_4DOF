@@ -17,12 +17,12 @@ Si deseas crear un paquete ROS C++ para trabajar con el brazo robótico, puedes 
 1. Crea un nuevo paquete ROS llamado `brazo_robotico` utilizando el comando `catkin_create_pkg` en el direcotrio catkin_ws/src:
     ```bash
     cd ~/catkin_ws/src
-    catkin_create_pkg brazo_robot_test roscpp std_msgs
+    catkin_create_pkg brazo_robot roscpp std_msgs
     ```
 
 2. Navega al directorio de tu paquete recién creado:
     ```bash
-    cd ~/catkin_ws/src/brazo_robot_test
+    cd ~/catkin_ws/src/brazo_robot
     ```
 
 3. Crea un archivo llamado `nodo_robot.cpp` en el directorio `src` del paquete:
@@ -59,7 +59,7 @@ Si deseas crear un paquete ROS C++ para trabajar con el brazo robótico, puedes 
 5. Modifica el archivo `CMakeLists.txt` en el directorio de tu paquete (`~/catkin_ws/src/brazo_robotico/CMakeLists.txt`) con el siguiente contenido:
     ```cmake
     cmake_minimum_required(VERSION 3.0.2)
-    project(brazo_robotico)
+    project(brazo_robot)
 
     find_package(catkin REQUIRED COMPONENTS
       roscpp
@@ -92,7 +92,7 @@ Si deseas crear un paquete ROS C++ para trabajar con el brazo robótico, puedes 
 7. En el caso de que no se detecte los cambios en el espacio de trabajo, ejecutamos lo siguiente:
     ```bash
     cd ~/catkin_ws
-    catkin_make --only-pkg-with-deps brazo_robotico
+    catkin_make --only-pkg-with-deps brazo_robot
     ```
 8. Actualiza el entorno de trabajo
    ```bash
@@ -100,7 +100,7 @@ Si deseas crear un paquete ROS C++ para trabajar con el brazo robótico, puedes 
    ```
 9. Ejecuta el nodo
    ```bash
-    rosrun brazo_robotico nodo_robot
+    rosrun brazo_robot nodo_robot
    ```
    
 
