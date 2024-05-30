@@ -246,30 +246,29 @@ int main(int argc, char** argv)
 
 Modifica el archivo `CMakeLists.txt` en el directorio de tu paquete (`~/catkin_ws/src/brazo_robot/CMakeLists.txt`) con el siguiente contenido:
     
-    ```cmake
-    cmake_minimum_required(VERSION 3.0.2)
-    project(brazo_robot)
+```cmake
+cmake_minimum_required(VERSION 3.0.2)
+project(brazo_robot)
 
-    find_package(catkin REQUIRED COMPONENTS
-      eigen_conversions
-      roscpp
-      std_msgs
-    )
+find_package(catkin REQUIRED COMPONENTS
+  eigen_conversions
+  roscpp
+  std_msgs
+)
 
-    catkin_package()
+catkin_package()
 
-    include_directories(
-      ${catkin_INCLUDE_DIRS}
-    )
+include_directories(
+  ${catkin_INCLUDE_DIRS}
+)
 
-    add_executable(nodo_robot src/nodo_robot.cpp)
-    add_executable(nodo_arm src/nodo_arm.cpp)
+add_executable(nodo_robot src/nodo_robot.cpp)
+add_executable(nodo_arm src/nodo_arm.cpp)
 
-    target_link_libraries(nodo_robot
-      ${catkin_LIBRARIES}
-    )
-    
-    target_link_libraries(nodo_arm ${catkin_LIBRARIES} )    
-    ```
+target_link_libraries(nodo_robot
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(nodo_arm ${catkin_LIBRARIES} )    
+```
 
 
