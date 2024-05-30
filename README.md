@@ -76,6 +76,11 @@ Si deseas crear un paquete ROS C++ para trabajar con el brazo robótico, puedes 
     target_link_libraries(nodo_robot
       ${catkin_LIBRARIES}
     )
+    # Si deseas agregar más ejecutables, puedes hacerlo por ejemplo como sigue:
+    # add_executable(nodo_arm src/nodo_arm.cpp)
+    # target_link_libraries(nodo_arm
+    #   ${catkin_LIBRARIES}
+    # )
     ```
 
 6. Luego, ejecuta `catkin_make` para compilar tu paquete:
