@@ -10,6 +10,24 @@ Demostración del Digital Twin:
 
 ![Digital Twin](Gif/DigitalTwin_2.gif)
 
+## Comando importantes
+
+Clonar repositorio:
+```bash
+git clone https://github.com/bryansgue/Course_Robot_Arm_4DOF
+```
+
+Actualizar repositorio:
+```bash
+git pull origin main
+```
+
+Forzar actualizacion de repositorio
+```bash
+git fetch origin main && git reset --hard origin/main
+```
+
+
 ## Creación de un Paquete ROS C++
 
 Si deseas crear un paquete ROS C++ para trabajar con el brazo robótico, puedes seguir estos pasos:
