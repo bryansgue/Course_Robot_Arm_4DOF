@@ -1,4 +1,4 @@
-# Bienvenidos Course_Robot_Arm_4DOF 
+# Bienvenidos Curso de Introducción a Gemelos Digitales 
 
 ## Demostración del Brazo Robot de 4 grados de libertad
 
