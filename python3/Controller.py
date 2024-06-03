@@ -14,13 +14,14 @@ q3 = 0.0
 q4 = 0.0
 
 
-
 def states_call_back(state_msg):
     global q1, q2, q3, q4
     q1 = state_msg.axes[0]
     q2 = state_msg.axes[1]
     q3 = state_msg.axes[2]
     q4 = state_msg.axes[3]
+
+
 
 def get_pose_arm():
     global q1, q2, q3, q4
@@ -50,8 +51,12 @@ def calcular_control(x, x_d):
     return K_p * (x_d - x)
 
 def plot_states(q, qd=None):
-
     plt.clf()
+    
+    # Solo tomar las últimas 100 muestras
+    q = q[:, -100:]
+    if qd is not None:
+        qd = qd[:, -100:]
     
     plt.plot(q[0], label='q1')
     plt.plot(q[1], label='q2')
@@ -70,7 +75,7 @@ def plot_states(q, qd=None):
     
     plt.legend()
     plt.draw()
-    plt.pause(0.001) 
+    plt.pause(0.001)
 
 def main(control_pub, control_msg ):
     # Initial Values System
@@ -106,7 +111,7 @@ def main(control_pub, control_msg ):
     for k in range(0, t.shape[0]):
 
         # Tarea deseada
-        q_d[:,k] = 1*np.array([q1_d, q2_d, q3_d, q4_d])
+        q_d[:,k] = 1*np.array([q1_d, q2_d, q3_d , q4_d])
 
         # Read Data
         q[:, k] = get_pose_arm()
@@ -135,6 +140,8 @@ if __name__ == '__main__':
 
         # SUCRIBER
         velocity_subscriber = rospy.Subscriber("/states", Joy, states_call_back)
+
+        
         
          # PUBLISHER
         control_msg = Joy()
