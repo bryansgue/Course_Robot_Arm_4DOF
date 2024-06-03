@@ -1,8 +1,7 @@
 #!/usr/bin/env python3  
 
-from controller import Supervisor
 from controller import Robot
-from controller import Motor
+
 
 #from controller import Device
 import math
@@ -11,10 +10,10 @@ import time
 
 def main():
     # Obtener el nodo del robot
-    robot = Supervisor()
+    robot = Robot()
 
     # Obtener una referencia a un dispositivo en tu robot 
-    robot_node = robot.getFromDef("ROBOT") 
+    #robot_node = robot.getFromDef("ROBOT") 
     print("FPS: {:.2f} Hz".format(1))
     print("OK")
 

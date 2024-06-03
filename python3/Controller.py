@@ -14,12 +14,26 @@ q3 = 0.0
 q4 = 0.0
 
 
+q1_d = 0
+q2_d = 0
+q3_d = 0.0
+q4_d = 0.0
+
+
 def states_call_back(state_msg):
     global q1, q2, q3, q4
     q1 = state_msg.axes[0]
     q2 = state_msg.axes[1]
     q3 = state_msg.axes[2]
     q4 = state_msg.axes[3]
+
+
+def rc_call_back(state_msg):
+    global q1_d, q2_d, q3_d, q4_d
+    q1_d = state_msg.axes[0]
+    q2_d = state_msg.axes[1]
+    q3_d = state_msg.axes[2]
+    q4_d = state_msg.axes[3]
 
 
 
@@ -140,6 +154,9 @@ if __name__ == '__main__':
 
         # SUCRIBER
         velocity_subscriber = rospy.Subscriber("/states", Joy, states_call_back)
+
+         # SUCRIBER
+        #rc_subscriber = rospy.Subscriber("/joy", Joy, rc_call_back)
 
         
         
