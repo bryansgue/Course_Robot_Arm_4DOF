@@ -4,6 +4,7 @@ from sensor_msgs.msg import Joy
 from geometry_msgs.msg import TwistStamped
 import numpy as np
 import math
+import matplotlib.pyplot as plt
 
 # Global variables Odometry Drone
 
@@ -48,6 +49,29 @@ def calcular_control(x, x_d):
     K_p = 10  # Ajusta este valor según sea necesario
     return K_p * (x_d - x)
 
+def plot_states(q, qd=None):
+
+    plt.clf()
+    
+    plt.plot(q[0], label='q1')
+    plt.plot(q[1], label='q2')
+    plt.plot(q[2], label='q3')
+    plt.plot(q[3], label='q4')
+    
+    if qd is not None:
+        plt.plot(qd[0], '--', label='qd1')
+        plt.plot(qd[1], '--', label='qd2')
+        plt.plot(qd[2], '--', label='qd3')
+        plt.plot(qd[3], '--', label='qd4')
+    
+    plt.xlabel('Time steps')
+    plt.ylabel('State value')
+    plt.title('System States over Time')
+    
+    plt.legend()
+    plt.draw()
+    plt.pause(0.001) 
+
 def main(control_pub, control_msg ):
     # Initial Values System
     # Simulation Time
@@ -61,6 +85,7 @@ def main(control_pub, control_msg ):
 
     # Vector Initial conditions
     q = np.zeros((4, t.shape[0]), dtype = np.double)
+    q_d = np.zeros((4, t.shape[0]), dtype = np.double)
     u = np.zeros((4, t.shape[0]), dtype = np.double)
 
     # Read Real data
@@ -71,25 +96,31 @@ def main(control_pub, control_msg ):
     rate = rospy.Rate(ros_rate)  # Crear un objeto de la clase rospy.Rate
 
     # Estado deseado
-    q1_d = math.radians(-60)
-    q2_d = math.radians(60)
-    q3_d = math.radians(-15)
-    q4_d = math.radians(-15)
+    q1_d = 1
+    q2_d = 1.5
+    q3_d = -2.5
+    q4_d = math.radians(15)
     
-    q_d = 1*np.array([q1_d, q2_d, q3_d, q4_d])
-
+    
     #INICIALIZA LECTURA DE ODOMETRIA
     for k in range(0, t.shape[0]):
+
+        # Tarea deseada
+        q_d[:,k] = 1*np.array([q1_d, q2_d, q3_d, q4_d])
 
         # Read Data
         q[:, k] = get_pose_arm()
 
         # Controller u = f(q) 
         #u[:, k] =  [1,-1,1,-2]
-        u[:, k] = calcular_control(q[:, k], q_d)
+        u[:, k] = calcular_control(q[:, k], q_d[:, k])
         
         #Envia las velocidades por ROS
         send_velocity_control(u[:, k], control_pub, control_msg )
+
+
+        # Plot states in real time
+        plot_states(q[:, :k+1], q_d[:, :k+1])
 
         # Loop_rate.sleep()
         rate.sleep() 
