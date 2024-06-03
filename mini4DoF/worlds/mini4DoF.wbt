@@ -1,4 +1,4 @@
-#VRML_SIM R2023a utf8
+#VRML_SIM R2023b utf8
 
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/floors/protos/Floor.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/appearances/protos/Parquetry.proto"
@@ -22,8 +22,8 @@ WorldInfo {
   title "mini4DoF Digital Twin"
 }
 Viewpoint {
-  orientation -0.1313411569721221 0.07263469432860732 0.9886726969351455 2.1750591757608637
-  position 2.8905599660264096 2.4271920504929194 1.0278366507586354
+  orientation -0.26318056194099226 0.19446105731853072 0.9449449132108088 1.9396539691352759
+  position 3.3506006765768537 0.5924139189843147 2.445630188208336
 }
 DEF classroom Group {
   children [
@@ -44,11 +44,13 @@ DEF classroom Group {
       }
     }
     Door {
-      hidden translation_5 0.0010000026621081182 8.350612978880179e-10 0
-      hidden rotation_5 0 0 1 0
+      hidden translation_5 0.0010140705668018057 4.413485733933964e-06 0
+      hidden rotation_5 0 0 -0.9999999999999999 2.9616506778836383e-05
+      hidden linearVelocity_5 2.4628194560895067e-11 -1.3098189221460485e-12 -0.0023480878039774705
+      hidden angularVelocity_5 -0.0009242083758927971 4.9175932484231015e-05 -5.068404410906602e-11
       translation 4.9 6.3 0
       size 0.2 1 3
-      position -6.7304820584509754e-09
+      position -0.00017903068710652527
       frameAppearance Appearance {
         material Material {
         }
@@ -444,7 +446,7 @@ DEF classroom Group {
                 size 6.4 0.02 1.6
               }
             }
-            Transform {
+            Pose {
               translation 0 -0.02 -0.81
               children [
                 Shape {
@@ -484,7 +486,7 @@ DEF classroom Group {
           name "desktop"
           boundingObject Group {
             children [
-              Transform {
+              Pose {
                 translation 0 0 0.81
                 children [
                   Shape {
@@ -494,7 +496,7 @@ DEF classroom Group {
                   }
                 ]
               }
-              Transform {
+              Pose {
                 translation -0.895 0.05 0.4
                 children [
                   Shape {
@@ -504,7 +506,7 @@ DEF classroom Group {
                   }
                 ]
               }
-              Transform {
+              Pose {
                 translation 0.895 0.05 0.4
                 children [
                   Shape {
@@ -514,7 +516,7 @@ DEF classroom Group {
                   }
                 ]
               }
-              Transform {
+              Pose {
                 translation 0 0.345 0.45
                 children [
                   Shape {
@@ -524,7 +526,7 @@ DEF classroom Group {
                   }
                 ]
               }
-              Transform {
+              Pose {
                 translation -0.64 0.045 0.45
                 children [
                   Shape {
@@ -534,7 +536,7 @@ DEF classroom Group {
                   }
                 ]
               }
-              Transform {
+              Pose {
                 translation 0.64 0.045 0.45
                 children [
                   Shape {
@@ -548,16 +550,26 @@ DEF classroom Group {
           }
         }
         Laptop {
-          hidden translation_1 -0.10000000000000014 -0.013844925969015147 0.13001864282106101
-          hidden rotation_1 0.5770490624411119 -0.57792231738079 -0.5770790020517567 2.0936871320752
-          translation 1.830508515353562 2.928577571835104 0.7388661279656089
-          rotation -0.0012582045050786369 -0.0016711297121209802 -0.999997812121061 1.3091147419666083
+          hidden position_0_0 -1.6957349488994472e-06
+          hidden linearVelocity_0 6.392810070235305e-09 -2.5360332613049443e-08 1.9233431749001816e-07
+          hidden angularVelocity_0 2.534446191574209e-06 6.38944994625789e-07 -3.729850045256541e-11
+          hidden translation_1 -0.10000000000000012 -0.01384489380878387 0.13001864666548088
+          hidden rotation_1 0.5770490089304552 -0.5779224242556241 -0.5770789485286061 2.093686971841669
+          hidden linearVelocity_1 -1.122901664566689e-07 5.106088638996421e-07 -4.9913939618477346e-05
+          hidden angularVelocity_1 -5.920226641519903e-06 -1.3145533028442599e-06 -3.7055563742232036e-11
+          translation 1.8305085153506953 2.9285775718464246 0.7388661387139808
+          rotation -0.001258162531726833 -0.0016710764331376543 -0.9999978122629061 1.3091147418330482
         }
         OfficeChair {
+          hidden position_0_0 -0.02393901006220389
+          hidden linearVelocity_0 -0.024264906172917145 0.010982586199581609 -0.01221293846329062
+          hidden angularVelocity_0 -0.01837504822452353 -0.050484721522641475 0.016656015174758638
           hidden translation_1 0 0 5.551115123125783e-17
-          hidden rotation_1 0 0 -1 0.0001250174708875038
-          translation -3.770010000036543 6.169999997150932 -0.00012897008173481939
-          rotation -6.372643678837548e-05 -6.281442815839604e-05 -0.9999999959966446 1.5707953110922126
+          hidden rotation_1 0 0 -1 0.006622357502428531
+          hidden linearVelocity_1 -0.03828613918621201 0.029147264766986362 -0.015939965818032267
+          hidden angularVelocity_1 -0.018495282693167494 -0.04779928198779985 -0.18636868722850872
+          translation -3.7773802249275903 6.174279669042781 0.0025635834906226895
+          rotation 0.006530403695036596 0.0070232429400050485 -0.9999540128856853 1.5562591799139878
         }
         Solid {
           translation 4.6 4.96 0
@@ -783,20 +795,38 @@ DEF classroom Group {
   ]
 }
 Wineglass {
-  translation 2.5871399994058617 3.142279999280708 0.7395610574981317
-  rotation -0.18240274218577368 0.14975026731334537 0.971753105002856 4.707830046552707e-05
+  hidden linearVelocity_0 3.461181176650077e-08 4.216075193786283e-08 1.6334938592876824e-08
+  hidden angularVelocity_0 -4.6406530843214464e-07 3.8097378230385455e-07 -3.2643996985513895e-16
+  translation 2.5871399992363497 3.142279999074223 0.7395610738024833
+  rotation -0.19179365332941192 0.1574600826113341 0.9687215889648528 4.722562723563486e-05
 }
-robot {
+DEF ROBOT robot {
+  hidden position_0_0 -5.171370621522919e-07
   hidden translation_1 2.8e-05 -0.000331 0.0353
-  hidden rotation_1 0 0 -0.9999999999999999 4.3290373821061784e-07
+  hidden rotation_1 0 0 -1 5.170509687929607e-07
+  hidden position_1_0 -3.503852033465358e-07
+  hidden linearVelocity_1 4.0553719148942095e-08 -4.167688216328058e-09 -2.6795765092687694e-05
+  hidden angularVelocity_1 2.726951153883749e-07 2.653473988691427e-06 -2.8347799347129847e-15
   hidden translation_2 0 -0.0145 0.032297
-  hidden rotation_2 0.9999999999999823 1.3288628618664394e-07 -1.3288624276009083e-07 1.5707960000000172
+  hidden rotation_2 0.9999999999999692 1.7537143894725014e-07 -1.7537138163676818e-07 1.5707960000000305
+  hidden position_2_0 -1.7302100583094577e-07
+  hidden linearVelocity_2 8.392822904941795e-08 -8.748320159755502e-09 -5.244434836515284e-05
+  hidden angularVelocity_2 1.7362583600067613e-07 5.30694641247984e-06 9.806713062244978e-14
   hidden translation_3 0.068828 -0.000331 -0.000609
-  hidden rotation_3 0 0 -1 1.2990531157078367e-07
+  hidden rotation_3 0 0 -0.9999999999999999 1.7377590819732256e-07
+  hidden position_3_0 -6.109648596296749e-08
+  hidden linearVelocity_3 8.173273484340294e-08 -8.715876073139679e-09 -7.121361286012374e-05
+  hidden angularVelocity_3 9.643696043408543e-08 6.616890636428237e-06 1.6131619386139553e-13
   hidden translation_4 0.068828 -0.000331 -0.000609
-  hidden rotation_4 0 0 -1 4.2146848510894035e-08
+  hidden rotation_4 0 0 -1 5.960464477539063e-08
+  hidden position_4_0 -1.1409442922086158e-08
+  hidden linearVelocity_4 9.519992226569675e-08 -8.785470620233792e-09 -8.300354349730642e-05
+  hidden angularVelocity_4 3.6744909159881006e-08 7.078694925799715e-06 1.9558759930809796e-13
   hidden translation_6 0.0683 0.0115 -0.015109
-  hidden rotation_6 -0.5673641167222131 -0.5822791251006778 0.5822791251006788 4.173745994691743
+  hidden rotation_6 -0.5673641159974452 -0.5822791254537794 0.5822791254537805 4.1737459935951895
+  hidden linearVelocity_6 8.086633676117322e-08 -8.733048935023305e-09 -8.522769131752235e-05
+  hidden angularVelocity_6 3.5137891323932704e-08 7.137523286840456e-06 1.9756972706223415e-13
   translation 2.39219 2.95957 0.74
   rotation 0 1 0 0
+  controller "<extern>"
 }

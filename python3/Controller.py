@@ -3,6 +3,7 @@ import rospy
 from sensor_msgs.msg import Joy
 from geometry_msgs.msg import TwistStamped
 import numpy as np
+import math
 
 # Global variables Odometry Drone
 
@@ -70,7 +71,12 @@ def main(control_pub, control_msg ):
     rate = rospy.Rate(ros_rate)  # Crear un objeto de la clase rospy.Rate
 
     # Estado deseado
-    q_d = 1*np.array([0.5, 1, 1.5, 2])
+    q1_d = math.radians(-60)
+    q2_d = math.radians(60)
+    q3_d = math.radians(-15)
+    q4_d = math.radians(-15)
+    
+    q_d = 1*np.array([q1_d, q2_d, q3_d, q4_d])
 
     #INICIALIZA LECTURA DE ODOMETRIA
     for k in range(0, t.shape[0]):
