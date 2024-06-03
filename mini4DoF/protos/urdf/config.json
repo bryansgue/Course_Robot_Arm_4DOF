@@ -1,0 +1,80 @@
+{
+    "documentId": "b61572e0852f20f40e370001",
+    "outputFormat": "urdf",
+    "assemblyName": "miniRobot_4Dof",
+    "robotName": "miniRobot_4Dof",
+    "drawFrames": false,
+    "drawCollisions": false,
+    "mergeSTLs": "all",
+
+    "simplifySTLs": "all",
+    "maxSTLSize": 1,
+
+    "useSCAD": true,
+
+    "jointMaxEffort": {
+        "default": 1.5,
+        "m1_continuous": 1.4,
+        "m2": 1.4,
+        "m3": 1.4,
+        "m4": 1.4,
+        "m5": 0.92
+    },
+    "jointMaxVelocity": {
+        "default": 20,
+        "m1_continuous": 5.96903,
+        "m2": 5.96903,
+        "m3": 5.96903,
+        "m4": 5.96903,
+        "m5": 6.80678
+    },
+
+    "dynamics": {
+        "XL430_body": {
+            "mass": 0.057,
+            "com": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "inertia": [
+                0.000015493772,
+                -1.751458e-7,
+                -4.811162e-8,
+                -1.751458e-7,
+                0.000008252852,
+                -8.492441e-7,
+                -4.811162e-8,
+                -8.492441e-7,
+                0.000013741272
+            ]
+        },
+        "XC330-T288-T": {
+            "mass": 0.023,
+            "com": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "inertia": [
+                0.00000319917,
+                6.84e-10,
+                5.86e-10,
+                6.84e-10,
+                0.000001689096,
+                1.0118e-8,
+                5.86e-10,
+                1.0118e-8,
+                0.000002962457
+            ]
+        },
+ 
+        "Base": "fixed",
+        "u2d2_n_pwr_board": "fixed"
+    },
+
+    "ignore": [
+        "fhs_m2.5x10",
+        "small_nut"
+    ]
+}
