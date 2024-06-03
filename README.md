@@ -319,10 +319,12 @@ def plot_states(q, qd=None):
 ## Robotics Toolbox: PETER CORKE
 
 ```bash
-git clone https://github.com/petercorke/robotics-toolbox-matlab.git robot
-
+git clone https://github.com/petercorke/robotics-toolbox-matlab.git rtb
+```
+```bash
 git clone https://github.com/petercorke/spatial-math smtb
-
+```
+```bash
 git clone https://github.com/petercorke/toolbox-common-matlab common
 ```
 Luego, dentro de MATLAB, agregue estas carpetas a su ruta:
