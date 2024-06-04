@@ -33,24 +33,17 @@ hy=h(2);
 hz=h(3);
    
 %% TRAYECTORIA DESEADA GRIPPER
-% hxd= 0.2;
-% hyd= 0.5; 
-% hzd= 0.3;
-
-
-% hxd= 4 * np.sin(value*0.04*t) + 3;
-% hyd= 0.5 * np.sin(0.08*t); 
-% hzd= 2 * np.sin(value*0.08*t) + 6
-value  = 1
-hxd =  0.025 * sin(value*0.08*t)  + 0.15
-hyd = 0.1 * sin(value*0.04*t)
-hzd = 0.05 * sin(value*0.08*t)  + 0.1
+num = 1;
+value  = 1;
+hxd = num*0.025 * sin(value*0.08*t)  + 0.15 ;
+hyd =  num*0.1 * sin(value*0.04*t);
+hzd = num* 0.05 * sin(value*0.08*t)  + 0.1;
 
 hd = [hxd; hyd; hzd];
 % %% VELOCIDAD DESEADA
-hxdp=  0.025 * value* 0.08 * cos(value*0.08*t);
-hydp= 0.1 * value * 0.04 * cos(value*0.04*t);
-hzdp= 0.05 * value* 0.08 * cos(value*0.08*t);
+hxdp= num*0.025 * value* 0.08 * cos(value*0.08*t);
+hydp= num*0.1 * value * 0.04 * cos(value*0.04*t);
+hzdp= num*0.05 * value* 0.08 * cos(value*0.08*t);
 
 %% CONTROL
 tic
@@ -64,17 +57,14 @@ for k=1:length(t)
     hdp(:,k)=[hxdp(k) hydp(k) hzdp(k)]';
     
     %% Controlador Jacobiano
-    qpref = Controler(l2,l3,l4,q(:,k),he(:,k),hdp(:,k));
+    qpref = Controler_min_norm(l2,l3,l4,q(:,k),he(:,k),hdp(:,k));
+    %qpref = Controler(l2,l3,l4,q(:,k),he(:,k),hdp(:,k));
     
     q(:,k+1) = ts*qpref+q(:,k);
     %% CINEMATICA DIRECTA
     
-    
     h(:,k+1) = CDArm4DOF(l1,l2,l3,l4,q(:,k+1));
-    
-    
-    
-    
+      
     %%
 end
 toc

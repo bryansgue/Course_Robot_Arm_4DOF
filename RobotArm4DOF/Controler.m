@@ -8,13 +8,13 @@ q4 = q(4);
 J = jacobiana_Brazo4DOF(l2,l3,l4,q1,q2,q3,q4);
 
 %% MATRIZ DE GANANCIA
-K = 1*eye(3);
+K = 0.1*eye(3);
 
 %% POSICIONES DESEADAS DE LOS ESLABONES PARA AHORRAR ENERGIA
 q1d = 0*pi/180;
-q2d = 60*pi/180;
-q3d = -15*pi/180;
-q4d = -15*pi/180;
+q2d = 0*pi/180;
+q3d = -30*pi/180;
+q4d = -30*pi/180;
 
 %% VECTOR n
 hq1 = q1d-q1;
@@ -25,7 +25,7 @@ hq4 = q4d-q4;
 n=[hq1 hq2 hq3 hq4]';
 
 %% MATRIZ GANANCIA D
-D = 0.1*eye(4);
+D = 10*eye(4);
 
 %% MATRIZ IDENTIDAD I
 I = eye(4);
