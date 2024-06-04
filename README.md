@@ -1,6 +1,6 @@
 # Bienvenidos Curso de Introducción a Gemelos Digitales 
 
-## Demostración del Brazo Robot de 4 grados de libertad
+## Demostración del Brazo Robot de 4 grados de libertad.
 
 ![Brazo Robot de 4 grados de libertad](Gif/brazo_arm_4DOF.gif)
 
