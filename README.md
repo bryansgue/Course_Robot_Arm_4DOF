@@ -333,3 +333,8 @@ Luego, dentro de MATLAB, agregue estas carpetas a su ruta:
 addpath rtb common smtb
 ```
 
+## Codigo para ejecutar controlador externo en webots
+```bash
+$WEBOTS_HOME/webots-controller
+```
+
