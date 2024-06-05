@@ -40,7 +40,7 @@ hzdp= 0.05 * value* 0.08 * cos(value*0.08*t);
 %% Lectura de posiciones del brazo for ROS
 
 rosshutdown
-setenv('ROS_MASTER_URI','http://192.168.88.252:11311')
+setenv('ROS_MASTER_URI','http://localhost:11311')
 % setenv('ROS_IP','192.168.88.104')
 rosinit
 

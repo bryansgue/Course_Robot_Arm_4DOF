@@ -3,6 +3,9 @@ import rospy
 from sensor_msgs.msg import Joy
 from geometry_msgs.msg import TwistStamped
 import numpy as np
+from scipy.io import savemat
+import os
+
 
 # Global variables Odometry Drone
 
@@ -213,6 +216,26 @@ def main():
         print(Error[:,k])
     
     send_velocity_control([0, 0, 0, 0])
+
+
+    # Ruta que deseas verificar
+    pwd = "/home/bryansgue/Doctoral_Research/Matlab/Graficas_Metologia"
+
+    # Verificar si la ruta no existe
+    if not os.path.exists(pwd) or not os.path.isdir(pwd):
+        print(f"La ruta {pwd} no existe. Estableciendo la ruta local como pwd.")
+        pwd = os.getcwd()  # Establece la ruta local como pwd
+
+    
+    
+    name_file = "Control_Kin_Arm_4DOF.mat"
+    
+    save = True
+    if save==True:
+        savemat(os.path.join(pwd, name_file), {
+                'q_states': x,
+                'u': ref,
+                't_time': t})
 
 if __name__ == '__main__':
     try:
