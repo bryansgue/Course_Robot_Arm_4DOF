@@ -29,31 +29,31 @@ m1_continuous = robot.getDevice('m1_continuous')
 m1_continuous.setPosition(float('inf'))
 m1_s = 1
 m1_d = 0
-m1_continuous.setVelocity(m1_s * m1_d)
+# m1_continuous.setVelocity(m1_s * m1_d)
 
 m2 = robot.getDevice('m2')
 m2.setPosition(float('inf'))
 m2_s = 1
 m2_d = 0
-m2.setVelocity(m2_s * m2_d)
+# m2.setVelocity(m2_s * m2_d)
 
 m3 = robot.getDevice('m3')
 m3.setPosition(float('inf'))
 m3_s = 1
 m3_d = 0
-m3.setVelocity(m3_s * m3_d)
+# m3.setVelocity(m3_s * m3_d)
 
 m4 = robot.getDevice('m4')
 m4.setPosition(float('inf'))
 m4_s = 1
 m4_d = 0
-m4.setVelocity(m4_s * m4_d)
+# m4.setVelocity(m4_s * m4_d)
 
 m5 = robot.getDevice('m5')
 m5.setPosition(float('inf'))
 m5_s = 1
 m5_d = 0
-m5.setVelocity(m5_s * m5_d)
+# m5.setVelocity(m5_s * m5_d)
 
 # Initialize Sensors
 m1_p = robot.getDevice('m1_continuous_sensor')
@@ -83,6 +83,15 @@ robot.keyboard = robot.getKeyboard()
 robot.mouse.enable(timestep)
 robot.mouse.enable3dPosition()
 
+# message for human in the loop
+print("Hello, this is a Demo for controlling the miniRobot Arm using the keyboard & mouse \n")
+print("Select the main window and use the keyboard:\n")
+print("z + Drag mouse horizontal = move the 1 Dof\n")
+print("z + Drag mouse vertical   = move the 2 Dof\n")
+print("x + Drag mouse vertical   = move the 3 Dof\n")
+print("c + Drag mouse vertical   = move the 4 Dof\n")
+print("c + Drag mouse horizontal = move the gripper\n")
+
 # Main loop:
 while robot.step(timestep) != -1:
 
@@ -92,8 +101,6 @@ while robot.step(timestep) != -1:
     m3a_p = m3_p.getValue()
     m4a_p = m4_p.getValue()
     m5a_p = m5_p.getValue()
-    
-    # print(m1a_p,m2a_p,m3a_p,m4a_p,m5a_p)
     
     # Get pressed key
     key = robot.keyboard.getKey()
@@ -151,10 +158,10 @@ while robot.step(timestep) != -1:
         if key == 90:
             m1_d = -u_fac
             m2_d = -v_fac
-            # if (m1_d > 0 and m1a_p > 3.141593) or (m1_d < 0 and m1a_p < -3.141593):
-                # m1_d = 0
-            # if (m2_d > 0 and m2a_p > 3.141593) or (m2_d < 0 and m2a_p < -3.141593):
-                # m2_d = 0
+            if (m1_d > 0 and m1a_p > 3.141593) or (m1_d < 0 and m1a_p < -3.141593):
+                m1_d = 0
+            if (m2_d > 0 and m2a_p > 3.141593) or (m2_d < 0 and m2a_p < -3.141593):
+                m2_d = 0
         else:
              m1_d = 0
              m2_d = 0
@@ -162,26 +169,23 @@ while robot.step(timestep) != -1:
         # x key elbow
         if key == 88:
             m3_d = -v_fac
-            # if (m3_d > 0 and m3a_p > 3.141593) or (m3_d < 0 and m3a_p < -3.141593):
-                # m3_d = 0
+            if (m3_d > 0 and m3a_p > 3.141593) or (m3_d < 0 and m3a_p < -3.141593):
+                m3_d = 0
         else:
              m3_d = 0
        
-        # s key wrist
-        if key == 83:
+        # c key wrist
+        if key == 67:
             m4_d = -v_fac
-            # if (m4_d > 0 and m4a_p > 3.141593) or (m4_d < 0 and m4a_p < -3.141593):
-                # m4_d = 0
+            if (m4_d > 0 and m4a_p > 3.141593) or (m4_d < 0 and m4a_p < -3.141593):
+                m4_d = 0
             m5_d = u_fac
-            # if (m5_d > 0 and m5a_p > 3.141593) or (m5_d < 0 and m5a_p < -3.141593):
-                # m5_d = 0
+            if (m5_d > 0 and m5a_p > 3.141593) or (m5_d < 0 and m5a_p < -3.141593):
+                m5_d = 0
         else:
              m4_d = 0
              m5_d = 0
              
-
-             
-     
     # Setting velocity of every motor        
     m1_continuous.setVelocity(m1_s * m1_d)
     m2.setVelocity(m2_s * m2_d)
