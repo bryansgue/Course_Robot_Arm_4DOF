@@ -136,7 +136,7 @@ def send_velocity_control(u):
 def main():
     # Initial Values System
     # Simulation Time
-    t_final = 90
+    t_final = 20
     # Sample time
     frec= 30
     t_s = 1/frec
@@ -219,15 +219,13 @@ def main():
 
 
     # Ruta que deseas verificar
-    pwd = "/home/bryansgue/Doctoral_Research/Matlab/Graficas_Metologia"
+    pwd = "/home/bryansgueCA/Doctoral_Research/Matlab/Graficas_MetologiaC"
 
     # Verificar si la ruta no existe
     if not os.path.exists(pwd) or not os.path.isdir(pwd):
         print(f"La ruta {pwd} no existe. Estableciendo la ruta local como pwd.")
         pwd = os.getcwd()  # Establece la ruta local como pwd
-
-    
-    
+  
     name_file = "Control_Kin_Arm_4DOF.mat"
     
     save = True
