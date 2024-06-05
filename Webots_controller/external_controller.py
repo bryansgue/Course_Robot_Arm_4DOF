@@ -122,13 +122,14 @@ def main():
     
 
     # Sample Time Defintion
-    sample_time = 0.01
+    f = 30
+    sample_time = 1/f
 
     # Frequency of the simulation
     hz = int(1/sample_time)
    
     # Time defintion
-    rate = rospy.Rate(10)
+    rate = rospy.Rate(f)
 
     # INICIA BUCLE PRINCIPAL    
     while robot.step(time_step) != -1:

@@ -19,7 +19,7 @@ q3_p = 0.0
 q4_p = 0.0
 
 #Caracteristicas del Brazo
-l = [0.0375+0.0676, 0.06883, 0.06883, 0.0683+0.0683]
+l = [0.0676, 0.06883, 0.06883, 0.15916]
 
 
 def CDArm4DOF(l, q):
@@ -57,7 +57,7 @@ def jacobiana_Brazo4DOF(L, q):
 
 import numpy as np
 
-def Controler(L, q, he, hdp):
+def Controler(L, q, he, hdp,val):
 
     q1, q2, q3, q4 = q
 
@@ -65,7 +65,7 @@ def Controler(L, q, he, hdp):
     J = jacobiana_Brazo4DOF(L, q)
 
     # Matriz de ganancia
-    K = np.eye(3)
+    K = val*np.eye(3)
 
     # Posiciones deseadas de los eslabones
     q1d = 0 * np.pi / 180
@@ -136,9 +136,9 @@ def send_velocity_control(u):
 def main():
     # Initial Values System
     # Simulation Time
-    t_final = 20
+    t_final = 60
     # Sample time
-    frec= 30
+    frec= 60
     t_s = 1/frec
        
     # Time simulation
@@ -162,7 +162,7 @@ def main():
 
 
     #TAREA DESEADA
-    value = 9
+    value = 9/3
 
     # Definir las funciones originales como expresiones lambda
     xd = lambda t: 0.025 * np.sin(value * 0.08 * t) + 0.15
@@ -194,20 +194,23 @@ def main():
     # Errors of the system
     Error = np.zeros((3, t.shape[0]), dtype = np.double)
 
+    # Ganancia del controlador
+    K = 0.5
+
     #INICIALIZA LECTURA DE ODOMETRIA
     for k in range(0, t.shape[0]):
-
-
-        Error[:,k] = ref[:, k] - h[:, k]
 
         # Read Real data
         x[:, k] = get_pose_arm()
         x_p[:, k] = get_vel_arm()
 
-        h[:,k+1] = CDArm4DOF(l, x[:, k])
+        h[:,k] = CDArm4DOF(l, x[:, k])
 
         #Controlador
-        u[:,k] = Controler(l, x[:, k], Error[:,k], ref_p[:, k])
+        Error[:,k] = ref[:, k] - h[:, k]
+
+        
+        u[:,k] = Controler(l, x[:, k], Error[:,k], ref_p[:, k], K)
     
         send_velocity_control(u[:,k])
         # Loop_rate.sleep()
@@ -219,7 +222,7 @@ def main():
 
 
     # Ruta que deseas verificar
-    pwd = "/home/bryansgueCA/Doctoral_Research/Matlab/Graficas_MetologiaC"
+    pwd = "/home/bryansgue/Doctoral_Research/Cursos/Course_Robot_Arm_4DOF/Matlab"
 
     # Verificar si la ruta no existe
     if not os.path.exists(pwd) or not os.path.isdir(pwd):
@@ -231,9 +234,12 @@ def main():
     save = True
     if save==True:
         savemat(os.path.join(pwd, name_file), {
-                'q_states': x,
-                'u': ref,
-                't_time': t})
+                'h': h,
+                'h_d': ref,
+                't': t,
+                'u': u,
+                'x_e': Error,
+                'q': x})
 
 if __name__ == '__main__':
     try:
