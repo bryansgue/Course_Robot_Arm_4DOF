@@ -57,7 +57,7 @@ def jacobiana_Brazo4DOF(L, q):
 
 import numpy as np
 
-def Controler(L, q, he, hdp,val):
+def Controler_pos(L, q, he, hdp,val):
 
     q1, q2, q3, q4 = q
 
@@ -69,9 +69,9 @@ def Controler(L, q, he, hdp,val):
 
     # Posiciones deseadas de los eslabones
     q1d = 0 * np.pi / 180
-    q2d = 60 * np.pi / 180
-    q3d = -15 * np.pi / 180
-    q4d = -15 * np.pi / 180
+    q2d = 30 * np.pi / 180
+    q3d = +15 * np.pi / 180
+    q4d = 0* np.pi / 180
 
     # Vector n
     hq1 = q1d - q1
@@ -81,7 +81,7 @@ def Controler(L, q, he, hdp,val):
     n = np.array([hq1, hq2, hq3, hq4])
 
     # Matriz ganancia D
-    D = 0.1 * np.eye(4)
+    D = np.diag([1,5,5,5])
 
     # Tarea secundaria para el robot
     I = np.eye(4)
@@ -89,8 +89,11 @@ def Controler(L, q, he, hdp,val):
 
     TAREA_S = np.dot((I - np.dot(np.linalg.pinv(J), J)), np.dot(D, n))
 
+    # Matriz de ganancia
+    K = val*np.eye(3)
+
     # Controlador
-    Vref = np.linalg.pinv(J) @ (hdp + K @ np.tanh(0.5 * he)) + TAREA_S
+    Vref = np.linalg.pinv(J) @ ( K @ np.tanh(0.5 * he)) + TAREA_S 
     
     return Vref
 
@@ -196,8 +199,18 @@ def main():
     # Ganancia del controlador
     K = 0.5
 
+    a = True
+    umbral = 0.01
     #INICIALIZA LECTURA DE ODOMETRIA
     for k in range(0, t.shape[0]):
+
+        ref_1 = np.array([0.15, 0.15, 0.04])
+        ref_2 = np.array([0.18, 0.20, 0.04])
+
+        if a == True:
+            ref[:,k] = ref_1
+        else:
+            ref[:,k] = ref_2
 
         # Read Real data
         x[:, k] = get_pose_arm()
@@ -208,8 +221,10 @@ def main():
         #Controlador
         Error[:,k] = ref[:, k] - h[:, k]
 
+        if np.linalg.norm(Error[:,k]) < umbral:
+            a = False
         
-        u[:,k] = Controler(l, x[:, k], Error[:,k], ref_p[:, k], K)
+        u[:,k] = Controler_pos(l, x[:, k], Error[:,k], ref_p[:, k], K)
     
         send_velocity_control(u[:,k])
         # Loop_rate.sleep()

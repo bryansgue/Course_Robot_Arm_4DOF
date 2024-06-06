@@ -10,3 +10,4 @@ orthographicViewHeight: 1
 textFiles: -1
 globalOptionalRendering: LightSensorRays::LightPositions::PenPaintingRays
 consoles: Console:All:All
+renderingDevicePerspectives: laptop:display;0;1;0;0
