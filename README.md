@@ -340,6 +340,10 @@ Recargar el archivo .bashrc para aplicar los cambios en la sesión actual:
 ```bash
 source ~/.bashrc
 ```
+Verificar que la variable WEBOTS_HOME está correctamente establecida:
+```bash
+echo $WEBOTS_HOME
+```
 
 ## Codigo para ejecutar controlador externo en webots
 ```bash
