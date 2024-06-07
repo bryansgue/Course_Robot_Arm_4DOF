@@ -334,7 +334,7 @@ addpath rtb common smtb
 ```
 ## (UNA SOLA VEZ V2023a) Agregar la variable WEBOTS_HOME al archivo .bashrc para que se establezca automáticamente en cada nueva sesión de terminal:
 ```bash
-echo 'export PYTHONPATH=/usr/local/webots/lib/controller/python:$PYTHONPATH'
+echo 'export PYTHONPATH=/usr/local/webots/lib/controller/python:$PYTHONPATH' >> ~/.bashrc
 ```
 
 ## (UNA SOLA VEZ V2023b )Agregar la variable WEBOTS_HOME al archivo .bashrc para que se establezca automáticamente en cada nueva sesión de terminal:
