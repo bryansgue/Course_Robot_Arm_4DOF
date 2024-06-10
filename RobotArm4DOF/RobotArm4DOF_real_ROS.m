@@ -44,6 +44,7 @@ setenv('ROS_MASTER_URI','http://localhost:11311')
 % setenv('ROS_IP','192.168.88.104')
 rosinit
 
+%%
 [velControl_topic, velControl_msg] = rospublisher('/joy','sensor_msgs/Joy');
 axe = [0.0 0 0 0];
 % Establecer los valores de axe en el mensaje
@@ -51,7 +52,7 @@ velControl_msg.Axes = axe;
 % Publicar el mensaje en el tópico '/joy'
 send(velControl_topic, velControl_msg);
 
-
+%%
 armSub = rossubscriber('/dynamixel_workbench/joint_states');
 [pos_arm,ver_arm,current_arm] = dynamixeldata(armSub);
 

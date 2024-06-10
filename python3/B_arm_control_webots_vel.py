@@ -18,6 +18,11 @@ q2_p = 0
 q3_p = 0.0
 q4_p = 0.0
 
+
+xd_p = 0
+yd_p = 0
+zd_p = 0.0
+
 #Caracteristicas del Brazo
 l = [0.0676, 0.06883, 0.06883, 0.15916]
 
@@ -57,7 +62,7 @@ def jacobiana_Brazo4DOF(L, q):
 
 import numpy as np
 
-def Controler_pos(L, q, he, hdp,val):
+def Controler_vel(L, q, hdp, val):
 
     q1, q2, q3, q4 = q
 
@@ -93,7 +98,7 @@ def Controler_pos(L, q, he, hdp,val):
     K = val*np.eye(3)
 
     # Controlador
-    Vref = np.linalg.pinv(J) @ ( K @ np.tanh(0.5 * he)) + TAREA_S 
+    Vref = np.linalg.pinv(J) @ (hdp) 
     
     return Vref
 
@@ -109,6 +114,20 @@ def states_call_back(state_msg):
     q2_p = state_msg.axes[5]
     q3_p = state_msg.axes[6]
     q4_p = state_msg.axes[7]
+
+def rc_call_back(state_msg):
+    global xd_p, yd_p, zd_p
+    # Leer velocidades lineales deseadas del mensaje
+    xd_p = state_msg.axes[0]/10
+    yd_p = state_msg.axes[1]/10
+    zd_p = state_msg.axes[2]/10
+
+
+def get_vel_deseado():
+    global xd_p, yd_p, zd_p
+    x = [xd_p, yd_p, zd_p]
+    return x
+
 
 def get_pose_arm():
     global q1, q2, q3, q4
@@ -139,7 +158,7 @@ def send_velocity_control(u):
 def main():
     # Initial Values System
     # Simulation Time
-    t_final = 60
+    t_final = 90
     # Sample time
     frec= 30
     t_s = 1/frec
@@ -204,33 +223,36 @@ def main():
     #INICIALIZA LECTURA DE ODOMETRIA
     for k in range(0, t.shape[0]):
 
-        ref_1 = np.array([0.15, 0.15, 0.04])
-        ref_2 = np.array([0.18, 0.20, 0.04])
-
-        if a == True:
-            ref[:,k] = ref_1
-        else:
-            ref[:,k] = ref_2
 
         # Read Real data
         x[:, k] = get_pose_arm()
-        x_p[:, k] = get_vel_arm()
+        #x_p[:, k] = get_vel_arm()
 
-        h[:,k] = CDArm4DOF(l, x[:, k])
+        #h[:,k] = CDArm4DOF(l, x[:, k])
 
         #Controlador
-        Error[:,k] = ref[:, k] - h[:, k]
+        #Error[:,k] = ref[:, k] - h[:, k]
 
-        if np.linalg.norm(Error[:,k]) < umbral:
-            a = False
+        angulo = x[0,k]
+        R = np.array([
+            [np.cos(angulo), np.sin(angulo), 0],
+            [-np.sin(angulo), np.cos(angulo), 0],
+            [0, 0, 1]
+        ])
+
+        # Obtener la velocidad deseada en el marco inercial
+        vel_d = get_vel_deseado()
+
+        # Transformar la velocidad deseada al marco de referencia de la base usando la transpuesta de R
+        ref_p[:, k] = np.linalg.inv(R)  @ vel_d
         
-        u[:,k] = Controler_pos(l, x[:, k], Error[:,k], ref_p[:, k], K)
+        u[:,k] = Controler_vel(l, x[:, k], ref_p[:, k], K)
     
         send_velocity_control(u[:,k])
         # Loop_rate.sleep()
         rate.sleep() 
 
-        print(Error[:,k])
+        print(ref_p[:, k] )
     
     send_velocity_control([0, 0, 0, 0])
 
@@ -262,6 +284,9 @@ if __name__ == '__main__':
 
         # SUCRIBER
         velocity_subscriber = rospy.Subscriber("/states", Joy, states_call_back)
+
+
+        rc_subscriber = rospy.Subscriber("/joy", Joy, rc_call_back)
         
                   
         main()

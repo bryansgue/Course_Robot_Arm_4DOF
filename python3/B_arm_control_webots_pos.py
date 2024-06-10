@@ -18,11 +18,6 @@ q2_p = 0
 q3_p = 0.0
 q4_p = 0.0
 
-
-xd_p = 0
-yd_p = 0
-zd_p = 0.0
-
 #Caracteristicas del Brazo
 l = [0.0676, 0.06883, 0.06883, 0.15916]
 
@@ -62,7 +57,7 @@ def jacobiana_Brazo4DOF(L, q):
 
 import numpy as np
 
-def Controler_vel(L, q, hdp, val):
+def Controler_pos(L, q, he, hdp,val):
 
     q1, q2, q3, q4 = q
 
@@ -75,8 +70,8 @@ def Controler_vel(L, q, hdp, val):
     # Posiciones deseadas de los eslabones
     q1d = 0 * np.pi / 180
     q2d = 30 * np.pi / 180
-    q3d = +15 * np.pi / 180
-    q4d = 0* np.pi / 180
+    q3d = -15 * np.pi / 180
+    q4d = +30 * np.pi / 180
 
     # Vector n
     hq1 = q1d - q1
@@ -86,7 +81,7 @@ def Controler_vel(L, q, hdp, val):
     n = np.array([hq1, hq2, hq3, hq4])
 
     # Matriz ganancia D
-    D = np.diag([1,5,5,5])
+    D = np.diag([1,5,5,10])
 
     # Tarea secundaria para el robot
     I = np.eye(4)
@@ -98,7 +93,7 @@ def Controler_vel(L, q, hdp, val):
     K = val*np.eye(3)
 
     # Controlador
-    Vref = np.linalg.pinv(J) @ (hdp) 
+    Vref = np.linalg.pinv(J) @ ( K @ np.tanh(0.5 * he)) + TAREA_S 
     
     return Vref
 
@@ -114,20 +109,6 @@ def states_call_back(state_msg):
     q2_p = state_msg.axes[5]
     q3_p = state_msg.axes[6]
     q4_p = state_msg.axes[7]
-
-def rc_call_back(state_msg):
-    global xd_p, yd_p, zd_p
-    # Leer velocidades lineales deseadas del mensaje
-    xd_p = state_msg.axes[4]/5
-    yd_p = state_msg.axes[3]/5
-    zd_p = state_msg.axes[1]/5
-
-
-def get_vel_deseado():
-    global xd_p, yd_p, zd_p
-    x = [xd_p, yd_p, zd_p]
-    return x
-
 
 def get_pose_arm():
     global q1, q2, q3, q4
@@ -158,7 +139,7 @@ def send_velocity_control(u):
 def main():
     # Initial Values System
     # Simulation Time
-    t_final = 90
+    t_final = 60
     # Sample time
     frec= 30
     t_s = 1/frec
@@ -223,33 +204,33 @@ def main():
     #INICIALIZA LECTURA DE ODOMETRIA
     for k in range(0, t.shape[0]):
 
+        ref_1 = np.array([0.15, 0.15, 0.04])
+        ref_2 = np.array([0.18, 0.20, 0.04])
+
+        if a == True:
+            ref[:,k] = ref_1
+        else:
+            ref[:,k] = ref_2
 
         # Read Real data
         x[:, k] = get_pose_arm()
-        #x_p[:, k] = get_vel_arm()
+        x_p[:, k] = get_vel_arm()
 
-        #h[:,k] = CDArm4DOF(l, x[:, k])
+        h[:,k] = CDArm4DOF(l, x[:, k])
 
         #Controlador
-        #Error[:,k] = ref[:, k] - h[:, k]
+        Error[:,k] = ref[:, k] - h[:, k]
 
-        angulo = x[0,k]
-        R = np.array([
-        [np.cos(angulo ), np.sin(angulo ), 0],
-        [-np.sin(angulo ), np.cos(angulo), 0],
-        [0, 0, 1]
-        ])
-
-        vel_d = get_vel_deseado()
-        ref_p[:, k] = np.linalg.inv(R)@vel_d    
+        if np.linalg.norm(Error[:,k]) < umbral:
+            a = False
         
-        u[:,k] = Controler_vel(l, x[:, k], ref_p[:, k], K)
+        u[:,k] = Controler_pos(l, x[:, k], Error[:,k], ref_p[:, k], K)
     
         send_velocity_control(u[:,k])
         # Loop_rate.sleep()
         rate.sleep() 
 
-        print(ref_p[:, k] )
+        print(Error[:,k])
     
     send_velocity_control([0, 0, 0, 0])
 
@@ -281,9 +262,6 @@ if __name__ == '__main__':
 
         # SUCRIBER
         velocity_subscriber = rospy.Subscriber("/states", Joy, states_call_back)
-
-
-        rc_subscriber = rospy.Subscriber("/joy", Joy, rc_call_back)
         
                   
         main()
