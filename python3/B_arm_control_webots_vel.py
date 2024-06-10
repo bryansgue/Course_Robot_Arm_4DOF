@@ -118,9 +118,9 @@ def states_call_back(state_msg):
 def rc_call_back(state_msg):
     global xd_p, yd_p, zd_p
     # Leer velocidades lineales deseadas del mensaje
-    xd_p = state_msg.axes[0]/10
-    yd_p = state_msg.axes[1]/10
-    zd_p = state_msg.axes[2]/10
+    xd_p = state_msg.axes[4]/10
+    yd_p = state_msg.axes[3]/10
+    zd_p = state_msg.axes[1]/10
 
 
 def get_vel_deseado():
