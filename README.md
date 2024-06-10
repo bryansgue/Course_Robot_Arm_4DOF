@@ -332,6 +332,23 @@ Luego, dentro de MATLAB, agregue estas carpetas a su ruta:
 ```bash
 addpath rtb common smtb
 ```
+## (UNA SOLA VEZ V2023a) Agregar la variable WEBOTS_HOME al archivo .bashrc para que se establezca automáticamente en cada nueva sesión de terminal:
+```bash
+echo 'export PYTHONPATH=/usr/local/webots/lib/controller/python:$PYTHONPATH' >> ~/.bashrc
+```
+
+## (UNA SOLA VEZ V2023b )Agregar la variable WEBOTS_HOME al archivo .bashrc para que se establezca automáticamente en cada nueva sesión de terminal:
+```bash
+echo 'export WEBOTS_HOME=/usr/local/webots' >> ~/.bashrc
+```
+Recargar el archivo .bashrc para aplicar los cambios en la sesión actual:
+```bash
+source ~/.bashrc
+```
+Verificar que la variable WEBOTS_HOME está correctamente establecida:
+```bash
+echo $WEBOTS_HOME
+```
 
 ## Codigo para ejecutar controlador externo en webots
 ```bash
