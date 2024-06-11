@@ -16,7 +16,7 @@ def joy_publisher():
     def shutdown_hook():
         # Cuando se interrumpe con Ctrl+C, publica valores de ejes "0000"
         joy_msg = Joy()
-        joy_msg.axes = [0.00, 0.00, 0.00, 0.00]
+        joy_msg.axes = [0.01, 0.00, 0.00, 0.00]
         pub.publish(joy_msg)
         rospy.loginfo("Valores de ejes cuando se interrumpe con Ctrl+C: %s", joy_msg.axes)
     
@@ -28,7 +28,7 @@ def joy_publisher():
             joy_msg = Joy()
             
             # Llena los campos del mensaje con 4 elementos arbitrarios
-            joy_msg.axes = [0.0, 0.00, 0.00, 0.00]
+            joy_msg.axes = [0.1, 0.00, 0.00, 0.00]
             joy_msg.buttons = [0, 0, 0, 0]
             
             # Publica el mensaje
